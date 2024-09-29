@@ -1,0 +1,40 @@
+name: Deploy Angular App to barberiaa.mandanga.co
+
+on:
+  push:
+    branches:
+      - main  # Ajusta si necesitas otra rama
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'  # Usa la versión de Node.js que tu proyecto requiere
+
+      - name: Install dependencies
+        run: |
+          npm install
+
+      - name: Build Angular project
+        run: |
+          npm run build --prod  # Genera la carpeta dist
+
+      - name: Set up SSH agent
+        uses: webfactory/ssh-agent@v0.7.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Add server to known_hosts
+        run: |
+          echo "${{ secrets.KNOWN_HOSTS }}" >> ~/.ssh/known_hosts
+
+      - name: Deploy dist folder to /public on VPS
+        run: |
+          rsync -avz --delete dist/ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:${{ secrets.SSH_PATH }}/public/
