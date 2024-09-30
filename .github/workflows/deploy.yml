@@ -3,7 +3,7 @@ name: Deploy Angular App to barberiaa.mandanga.co
 on:
   push:
     branches:
-      - main  # Ajusta si necesitas otra rama
+      - main  # Ajusta si usas otra rama
 
 jobs:
   deploy:
@@ -16,7 +16,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '16'  # Usa la versión de Node.js que tu proyecto requiere
+          node-version: '16'  # Ajusta según la versión de Node.js que uses
 
       - name: Install dependencies
         run: |
