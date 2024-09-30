@@ -3,8 +3,7 @@ name: Deploy Angular App to barberiaa.mandanga.co
 on:
   push:
     branches:
-      - main  # Ajusta si usas otra rama
-
+      - main
 jobs:
   deploy:
     runs-on: ubuntu-latest
