@@ -36,5 +36,5 @@ jobs:
 
       - name: Deploy dist folder to /public on VPS
         run: |
-          rsync -avz --delete dist/barberia ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:${{ secrets.SSH_PATH }}/public/
+          rsync -avz --delete dist/* ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:${{ secrets.SSH_PATH }}/public/
 
